@@ -91,6 +91,16 @@ BOOST_AUTO_TEST_CASE(test_simple_error_version)
     BOOST_CHECK_EQUAL(version4.getPatch(), 0);
     BOOST_CHECK_EQUAL(version4.getPreRelease(), "");
     BOOST_CHECK_EQUAL(version4.getBuild(), "");
+
+    semver::version version5;
+
+    BOOST_CHECK_EQUAL(version5.isValid(), false);
+    BOOST_CHECK_EQUAL(version5.getVersion(), "");
+    BOOST_CHECK_EQUAL(version5.getMajor(), 0);
+    BOOST_CHECK_EQUAL(version5.getMinor(), 0);
+    BOOST_CHECK_EQUAL(version5.getPatch(), 0);
+    BOOST_CHECK_EQUAL(version5.getPreRelease(), "");
+    BOOST_CHECK_EQUAL(version5.getBuild(), "");
 }
 
 
@@ -231,6 +241,12 @@ BOOST_AUTO_TEST_CASE(test_compare)
     BOOST_CHECK_EQUAL(version2.compare(version3), -1);
 
     BOOST_CHECK_EQUAL(version3.compare(version2), 1);
+
+    semver::version empty1, empty2, empty3("");
+    BOOST_CHECK_EQUAL(empty1.compare(empty2), 0);
+    BOOST_CHECK_EQUAL(empty2.compare(empty3), 0);
+
+    BOOST_CHECK_EQUAL(version3.compare(empty1), 1);
 }
 
 BOOST_AUTO_TEST_CASE(test_assignment)
@@ -329,7 +345,9 @@ BOOST_AUTO_TEST_CASE(test_comparator)
 
 BOOST_AUTO_TEST_CASE(test_comparator_suite)
 {
-    // 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0.
+    // "empty" < 0.1.0 < 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0.
+    semver::version empty;
+    semver::version v0("0.1.0");
     semver::version v1alpha("1.0.0-alpha");
     semver::version v1alpha1("1.0.0-alpha.1");
     semver::version v1alphabeta("1.0.0-alpha.beta");
@@ -339,6 +357,8 @@ BOOST_AUTO_TEST_CASE(test_comparator_suite)
     semver::version v1rc1("1.0.0-rc.1");
     semver::version v1("1.0.0");
 
+    BOOST_CHECK_EQUAL(empty < v0, true);
+    BOOST_CHECK_EQUAL(v0 < v1alpha, true);
     BOOST_CHECK_EQUAL(v1alpha < v1alpha1, true);
     BOOST_CHECK_EQUAL(v1alpha1 < v1alphabeta, true);
     BOOST_CHECK_EQUAL(v1alphabeta < v1beta, true);
@@ -350,14 +370,20 @@ BOOST_AUTO_TEST_CASE(test_comparator_suite)
 
 BOOST_AUTO_TEST_CASE(test_stream)
 {
-    std::string semver = "1.2.3-alpha.1";
-    semver::version version(semver);
+    {
+        std::string semver = "1.2.3-alpha.1";
+        semver::version version(semver);
+        boost::test_tools::output_test_stream output;
+        output << version;
+        BOOST_CHECK(output.is_equal(semver));
+    }
 
-    boost::test_tools::output_test_stream output;
-
-    output << version;
-
-    BOOST_CHECK(output.is_equal(semver));
+    {
+        semver::version version;
+        boost::test_tools::output_test_stream output;
+        output << version;
+        BOOST_CHECK(output.is_equal(""));
+    }
 }
 
 BOOST_AUTO_TEST_SUITE_END()

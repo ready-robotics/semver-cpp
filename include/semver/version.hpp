@@ -235,7 +235,7 @@ namespace semver {
         /**
          * Parse the version string
          */
-        version(const std::string& version)
+        explicit version(const std::string& version = "")
         {
             m_version           = version;
             m_major             = 0;
@@ -257,8 +257,6 @@ namespace semver {
                 parse();
             }
         }
-
-        ~version() {}
 
         /**
          * Get full version
@@ -357,7 +355,7 @@ namespace semver {
             return -1;
         }
 
-        version& operator= (version& rgt)
+        version& operator= (const version& rgt)
         {
             if ((*this) != rgt)
             {
@@ -376,17 +374,17 @@ namespace semver {
             return *this;
         }
 
-        friend bool operator== (version &lft, version &rgt)
+        friend bool operator== (const version &lft, const version &rgt)
         {
             return lft.getVersion().compare(rgt.getVersion()) == 0;
         }
 
-        friend bool operator!= (version &lft, version &rgt)
+        friend bool operator!= (const version &lft, const version &rgt)
         {
             return !(lft == rgt);
         }
 
-        friend bool operator> (version &lft, version &rgt)
+        friend bool operator> (const version &lft, const version &rgt)
         {
             // Major
             if (lft.getMajor() < 0 && rgt.getMajor() >= 0)
@@ -489,17 +487,17 @@ namespace semver {
             return false;
         }
 
-        friend bool operator>= (version &lft, version &rgt)
+        friend bool operator>= (const version &lft, const version &rgt)
         {
             return (lft > rgt) || (lft == rgt);
         }
 
-        friend bool operator< (version &lft, version &rgt)
+        friend bool operator< (const version &lft, const version &rgt)
         {
             return (rgt > lft);
         }
 
-        friend bool operator<= (version &lft, version &rgt)
+        friend bool operator<= (const version &lft, const version &rgt)
         {
             return (lft < rgt) || (lft == rgt);
         }
