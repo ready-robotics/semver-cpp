@@ -11,3 +11,7 @@ swift-test
 .vagrant
 Vagrantfile
 build
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile

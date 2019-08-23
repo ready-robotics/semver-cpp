@@ -7,14 +7,14 @@ Install
 -------
 
 ~~~shell
-$ make && make install
+$ cd build && cmake .. && make && sudo make install
 ~~~
 
 Test
 ----
 
 ~~~shell
-$ make test
+$ cd build && cmake .. && make && semver_test
 ~~~
 
 License
