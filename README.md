@@ -7,6 +7,7 @@ Install
 -------
 
 ~~~shell
+$ mkdir build
 $ cd build && cmake .. && make && sudo make install
 ~~~
 
@@ -14,7 +15,8 @@ Test
 ----
 
 ~~~shell
-$ cd build && cmake .. && make && semver_test
+$ mkdir build
+$ cd build && cmake .. && make && make test
 ~~~
 
 License

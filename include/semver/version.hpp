@@ -199,7 +199,7 @@ namespace semver {
                 else if (m_pre_release.find("alpha") != std::string::npos)
                 {
                     m_pre_release_type = PRE_RELEASE_ALPHA;
-                } 
+                }
                 else if (m_pre_release.find("beta") != std::string::npos)
                 {
                     m_pre_release_type = PRE_RELEASE_BETA;
@@ -450,10 +450,10 @@ namespace semver {
             {
                 return false;
             }
-            
+
             // Pre release
             if (
-                (lft.getPreReleaseType() == rgt.getPreReleaseType()) && 
+                (lft.getPreReleaseType() == rgt.getPreReleaseType()) &&
                 (lft.getPreReleaseId() == rgt.getPreReleaseId())
             )
             {
@@ -472,7 +472,7 @@ namespace semver {
             }
 
             if (
-                (lft.getPreReleaseType() == rgt.getPreReleaseType()) && 
+                (lft.getPreReleaseType() == rgt.getPreReleaseType()) &&
                 (lft.getPreReleaseId().compare(rgt.getPreReleaseId()) > 0)
             )
             {

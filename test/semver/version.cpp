@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE(test_pre_release_version)
     BOOST_CHECK_EQUAL(version1.getPreReleaseType(), semver::PRE_RELEASE_ALPHA);
     BOOST_CHECK_EQUAL(version1.getPreRelease(), "alpha");
     BOOST_CHECK_EQUAL(version1.getBuild(), "");
-    
+
     semver::version version2("1.0.0-alpha.1");
 
     BOOST_CHECK_EQUAL(version2.isValid(), true);
@@ -272,7 +272,7 @@ BOOST_AUTO_TEST_CASE(test_comparator)
     semver::version version("1.2.3-beta+20130101133700");
 
     semver::version version1("1.2.3-beta+20130101133700");
-    
+
     semver::version version2("1.2.3-beta+20130101133701");
 
     BOOST_CHECK_EQUAL(version == version1, true);
