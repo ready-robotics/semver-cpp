@@ -1,5 +1,0 @@
-env = Environment()
-env.Decider('MD5')
-env.Append(CPPFLAGS = ["-std=c++11", "-pedantic", "-Wall", "-pipe", "-g"])
-env.SConscript("SConscript", exports = ["env"])
-env.Clean('.', "build")

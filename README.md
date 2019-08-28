@@ -7,14 +7,14 @@ Install
 -------
 
 ~~~shell
-$ make && make install
+$ mkdir -p build && cd build && cmake .. && make && sudo make install
 ~~~
 
 Test
 ----
 
 ~~~shell
-$ make test
+$ mkdir -p build && cd build && cmake -DBUILD_TESTS:BOOL=True .. && make && make test
 ~~~
 
 License
