@@ -356,6 +356,9 @@ BOOST_AUTO_TEST_CASE(test_comparator_suite)
     semver::version v1beta11("1.0.0-beta.11");
     semver::version v1rc1("1.0.0-rc.1");
     semver::version v1("1.0.0");
+    semver::version cur_doos("2.11.0-1");
+    semver::version max_doos("2.11.0-3");
+    semver::version min_doos("2.10.0-1");
 
     BOOST_CHECK_EQUAL(empty < v0, true);
     BOOST_CHECK_EQUAL(v0 < v1alpha, true);
@@ -366,6 +369,15 @@ BOOST_AUTO_TEST_CASE(test_comparator_suite)
     BOOST_CHECK_EQUAL(v1beta2 < v1beta11, true);
     BOOST_CHECK_EQUAL(v1beta11 < v1rc1, true);
     BOOST_CHECK_EQUAL(v1rc1 < v1, true);
+
+    BOOST_CHECK_EQUAL(max_doos <= cur_doos , true);
+    BOOST_CHECK_EQUAL(cur_doos >= max_doos, true);
+
+    BOOST_CHECK_EQUAL(max_doos >= cur_doos , false);
+    BOOST_CHECK_EQUAL(cur_doos <= max_doos, false);
+
+    BOOST_CHECK_EQUAL(cur_doos > max_doos, false);
+    BOOST_CHECK_EQUAL(cur_doos < min_doos, false);
 }
 
 BOOST_AUTO_TEST_CASE(test_stream)
