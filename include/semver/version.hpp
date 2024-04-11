@@ -242,8 +242,9 @@ namespace semver {
             m_minor             = 0;
             m_patch             = 0;
             m_build             = "";
-            m_pre_release       = "";
+            m_pre_release_type  = PRE_RELEASE_NONE;
             m_pre_release_id    = "";
+            m_pre_release       = "";
             m_is_stable         = true;
 
             if (version.empty())
